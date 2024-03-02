@@ -21,8 +21,8 @@ const path = require("path");
 const { SlashCommandBuilder } = require("discord.js");
 const { AudioPlayerStatus, getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 
-const { PlayerInfo } = require(path.join("..", "utils", "types.js"));
-const { FileResource, LinkResource } = require(path.join("..", "utils", "resourceHandler.js"));
+const { PlayerInfo } = require(path.join("..", "..", "utils", "types.js"));
+const { FileResource, LinkResource } = require(path.join("..", "..", "utils", "resourceHandler.js"));
 
 const command = new SlashCommandBuilder()
     .setName("play")
