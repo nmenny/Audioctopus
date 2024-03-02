@@ -23,6 +23,8 @@ const { SlashCommandBuilder } = require("discord.js");
 
 const { createFolderName } = require(path.join(__dirname, "..", "..", "utils", "playlistUtils.js"));
 
+const NB_MAX_PLAYLIST = 200;
+
 const command = new SlashCommandBuilder()
     .setName("create-playlist")
     .setDescription("Creates a new playlist.")
@@ -44,6 +46,11 @@ async function execute(interact) {
     }
 
     fs.mkdirSync(folderName, { recursive: true });
+
+    if(fs.readdirSync(folderName).length >= NB_MAX_PLAYLIST) {
+        await interact.editReply({ content: `Limits of ${NB_MAX_PLAYLIST} playlists reached".`, ephemeral: true });
+        return;
+    }
 
     try {
         fs.writeFileSync(completePath, JSON.stringify({}), 'utf8');
