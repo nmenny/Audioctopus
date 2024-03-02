@@ -133,7 +133,22 @@ Warnings: The bot must be connected to a channel in order for it to work.
 
 Result:
 
-The commands tells the new status of the loopback function.
+The commands tells the new state of the loopback function.
+
+### /set-random-playback
+
+Activates/Deactivated the random playback for the playlists.
+
+Usage: `/set-random-playback activated`
+
+Details:
+- `activated`: if <tt>true</tt>, the random playback is activated
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells the new state of the random playback.
 
 ### /pause
 

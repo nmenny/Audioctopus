@@ -20,8 +20,13 @@ const { SlashCommandBuilder } = require("discord.js");
 const { getVoiceConnection } = require('@discordjs/voice');
 
 const command = new SlashCommandBuilder()
-    .setName("status")
-    .setDescription("Get information about the currently playing music.");
+    .setName("set-random-playback")
+    .setDescription("Tells the music player to randomly pick a song in a playlist or not.")
+    .addBooleanOption(opt => 
+        opt.setName("activated")
+            .setDescription("Randomly chooses the next song ?")
+            .setRequired(true)
+    );
 
 async function execute(interact) {
     const cnt = getVoiceConnection(interact.guildId);
@@ -30,17 +35,16 @@ async function execute(interact) {
         return;
     }
 
+    const rndActivated = interact.options.getBoolean("activated");
+
     const currPlayer = interact.client.musicPlayers.get(interact.guildId);
     if(!currPlayer) {
         await interact.reply({ content: `No audio playing.`, ephemeral: true });
         return;
     }
 
-    let res = `${currPlayer.resource.toString()} (loopback: ${currPlayer.inLoop ? "_on_" : "_off_"}) (random playback: ${currPlayer.resource.selectRnd ? "_on_" : "_off_"})`;
-
-    if(currPlayer.resource.hasMoreResource()) res += `\nStill ${currPlayer.resource.numberOfResourcesLeft()} music(s) to play.`;
-
-    await interact.reply({ content: res, ephemeral: true });
+    currPlayer.resource.selectRnd = rndActivated;
+    await interact.reply({ content: `Random playback ${rndActivated ? "activated" : "deactivated"}.`, ephemeral: false });
 }
 
 module.exports = {
