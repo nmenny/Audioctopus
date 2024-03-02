@@ -152,3 +152,15 @@ Warnings: The bot must be connected to a channel in order for it to work.
 Result:
 
 The commands tells if it has successfully stopped the music.
+
+### /status
+
+Display information about the current music.
+
+Usage: `/status`
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The name and the status of the loopback function is indicated (on or off).

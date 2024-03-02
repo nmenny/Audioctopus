@@ -62,23 +62,14 @@ function createPlayer(cli, gid) {
         console.error('Error:', error.message, 'with track', error.resource.metadata.title);
     });
 
-    player.on(AudioPlayerStatus.Buffering, () => {
-        console.log('Loading...');
-    });
-
     player.on(AudioPlayerStatus.Idle, async () => {
-        console.log('IDLE...');
-
         const playerI = cli.musicPlayers.get(gid);
+
+        // Loopback
         if(playerI && playerI.inLoop) {
-            console.log("looping...");
             resource = await playerI.resource.load();
             playerI.player.play(resource);
         }
-    });
-
-    player.on(AudioPlayerStatus.Playing, () => {
-        console.log('The audio player has started playing!');
     });
 
     return player;
@@ -100,7 +91,6 @@ async function execute(interact) {
     switch(interact.options.getSubcommand()) {
         case "from-file":
             const file = interact.options.getAttachment("file")
-            
             currRessourceData = new FileResource(file.name, file.attachment);
             resource = await currRessourceData.load();
             break;
