@@ -102,6 +102,24 @@ Result:
 
 The commands tells the name of the playing video. 
 
+### /play from-playlist
+
+Plays musics from a playlist. (see [here](#available-commands-for-playlists) for more details about playlists).
+
+Usage: `/play from-playlist playlist-name [music-id] [loop] [random]`
+
+Details:
+- `playlist-name`: a name of playlist to play.
+- `music-id`: (**optional**) the id of the music to play. The id is the number that corresponds to the one given when typing the command `playlist-info playlist-name`.
+- `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
+- `random`: (**optional**) if <tt>true</tt> plays the musics in a random order.
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells the name of the playing video.
+
 ### /hyperloop
 
 Activates/Deactivated the loopback function for the music.
@@ -224,7 +242,7 @@ Details:
 
 Result:
 
-The commands returns a list of all musics in the playlist.   
+The commands returns a list of all musics in the playlist with their id.   
 For example,   
 /playlist-info `playlist-name` playlist1  
 > Playlist "playlist1" contains: 

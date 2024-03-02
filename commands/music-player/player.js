@@ -21,8 +21,9 @@ const path = require("path");
 const { SlashCommandBuilder } = require("discord.js");
 const { AudioPlayerStatus, getVoiceConnection, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 
+const { loadPlaylist } = require(path.join(__dirname, "..", "..", "utils", "playlistUtils.js"));
 const { PlayerInfo } = require(path.join(__dirname, "..", "..", "utils", "types.js"));
-const { FileResource, LinkResource, checkFileFormat } = require(path.join(__dirname, "..", "..", "utils", "resourceHandler.js"));
+const { FileResource, LinkResource, ResourceSet, checkFileFormat } = require(path.join(__dirname, "..", "..", "utils", "resourceHandler.js"));
 
 const command = new SlashCommandBuilder()
     .setName("play")
@@ -54,6 +55,29 @@ const command = new SlashCommandBuilder()
                     .setDescription("Plays music in a loop.")    
             )
     )
+    .addSubcommand(scmd => 
+        scmd.setName("from-playlist")
+            .setDescription("Plays audio from a playlist.")
+            .addStringOption(opt =>
+                opt.setName("playlist-name")
+                    .setDescription("The name of the playlist to play.")
+                    .setMaxLength(30)
+                    .setRequired(true)
+            )
+            .addIntegerOption(opt =>
+                opt.setName("music-id")
+                    .setDescription("The id of the music to play (starts at 1)")
+                    .setMinValue(1)
+            )
+            .addBooleanOption(opt => 
+                opt.setName("loop")
+                    .setDescription("Plays music in a loop.")    
+            )
+            .addBooleanOption(opt => 
+                opt.setName("random")
+                    .setDescription("Chooses randomly the next music.")    
+            )
+    )
 
 function createPlayer(cli, gid) {
     const player = createAudioPlayer({behaviors: { noSubscriber: NoSubscriberBehavior.Pause } });
@@ -69,6 +93,12 @@ function createPlayer(cli, gid) {
         if(playerI && playerI.inLoop) {
             resource = await playerI.resource.load();
             playerI.player.play(resource);
+        
+        } 
+        // The next music in the playlist
+        else if(playerI && !playerI.inLoop && playerI.resource.next()) {
+            resource = await playerI.resource.load();
+            playerI.player.play(resource);
         }
     });
 
@@ -76,7 +106,7 @@ function createPlayer(cli, gid) {
 }
 
 async function execute(interact) {
-    let currRessourceData = undefined;
+    let currRessourceData = new ResourceSet();
     let cnt = undefined;
     let resource = undefined;
 
@@ -97,12 +127,33 @@ async function execute(interact) {
                 return;
             }
 
-            currRessourceData = new FileResource(file.name, file.attachment);
+            currRessourceData.addResource(new FileResource(file.name, file.attachment));
+            currRessourceData.next();
             resource = await currRessourceData.load();
             break;
         case "from-youtube":
             const videoLink = interact.options.getString("link");
-            currRessourceData = new LinkResource("", videoLink);
+            currRessourceData.addResource(new LinkResource("", videoLink));
+            currRessourceData.next();
+            resource = await currRessourceData.load();
+            break;
+        case "from-playlist":
+            currRessourceData.selectRnd = interact.options.getBoolean("random") ?? false;
+            const playlist = loadPlaylist(interact.guildId, interact.options.getString("playlist-name"));
+            
+            if(!playlist || playlist["list"].length === 0) {
+                await interact.editReply({ content: `Playlist "${interact.options.getString('playlist-name')}" does not exist or is empty.`, ephemeral: true });
+                return;
+            }
+
+            for(let music of playlist["list"]) {
+                currRessourceData.addResource(new LinkResource(music.title, music.link));
+            }
+
+            const musicId = interact.options.getInteger("music-id") ?? 1;
+            if(musicId <= 0 || musicId > playlist["list"].length) musicId = 1;
+
+            currRessourceData.goto(musicId);
             resource = await currRessourceData.load();
             break;
         default:
@@ -123,7 +174,7 @@ async function execute(interact) {
     const newInfo = new PlayerInfo(subscription, currRessourceData, interact.options.getBoolean("loop"));
     interact.client.musicPlayers.set(interact.guildId, newInfo);
 
-    await interact.editReply(`Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""}`);
+    await interact.editReply(`Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""} ${currRessourceData.selectRnd ? "(random)" : ""}`);
 }
 
 module.exports = {

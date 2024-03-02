@@ -36,7 +36,11 @@ async function execute(interact) {
         return;
     }
 
-    await interact.reply({ content: `${currPlayer.resource.toString()} (loop ${currPlayer.inLoop ? "_on_" : "_off_"})`, ephemeral: true });
+    let res = `${currPlayer.resource.toString()} (loop ${currPlayer.inLoop ? "_on_" : "_off_"}) (random ${currPlayer.resource.selectRnd ? "_on_" : "_off_"})`;
+
+    if(currPlayer.resource.hasMoreResource()) res += `\nStill ${currPlayer.resource.numberOfResourcesLeft()} musics to play.`;
+
+    await interact.reply({ content: res, ephemeral: true });
 }
 
 module.exports = {

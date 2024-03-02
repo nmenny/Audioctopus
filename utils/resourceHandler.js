@@ -71,10 +71,88 @@ class LinkResource extends Resource {
         if(!resource.metadata) resource.metadata = {};
         if(!resource.metadata.title) resource.metadata.title = this.title;
         
-        return resource
+        return resource;
     }
 
     toString() { return `Youtube video **${super.toString()}**`; }
 }
 
-module.exports = { FileResource, LinkResource, checkFileFormat };
+class ResourceSet {
+    constructor(selectRnd = false) {
+        this.set = [];
+        this.lastingSetIdx = [];
+        this.selectRnd = selectRnd;
+        this.currIdx = 0;
+    }
+
+    addResource(resource) {
+        this.set.push(resource);
+        this.lastingSetIdx.push(this.set.length);
+    }
+
+    getCurrentResource() {
+        if(this.currIdx <= 0 || this.currIdx > this.set.length) return undefined;
+
+        return this.set[this.currIdx-1];
+    }
+
+    goto(idx) {
+        if(idx <= 0 || idx > this.set.length) return false;
+
+        this.reset();
+        this.currIdx = idx;
+        this.lastingSetIdx = this.lastingSetIdx.slice(idx);
+
+        return true;
+    }
+
+    next() {
+        if(!this.hasMoreResource()) return false;
+
+        if(this.selectRnd) {
+            const selectIdx = Math.round(Math.random() * (this.lastingSetIdx.length - 1)) + 1;
+            this.currIdx = this.lastingSetIdx[selectIdx];
+            this.lastingSetIdx = this.lastingSetIdx.slice(0, selectIdx).concat(this.lastingSetIdx.slice(selectIdx+1));
+        } else {
+            this.currIdx = this.lastingSetIdx.shift();
+        }
+
+        return true;
+    }
+
+    hasMoreResource() {
+        return this.lastingSetIdx.length !== 0;
+    }
+
+    numberOfResourcesLeft() {
+        return this.lastingSetIdx.length;
+    }
+
+    reset() {
+        this.currIdx = 0;
+        this.lastingSetIdx = [];
+        for(let idx in this.set) {
+            this.lastingSetIdx.push(idx+1);
+        }
+    }
+
+    async load() {
+        const rsc = this.getCurrentResource();
+        if(rsc) {
+            return await rsc.load();
+        }
+
+        return undefined;
+    }
+
+    toString() { 
+        const rsc = this.getCurrentResource();
+        if(rsc) {
+            return rsc.toString();
+        }
+
+        return "";
+    }
+}
+
+module.exports = { FileResource, LinkResource, ResourceSet, checkFileFormat };
