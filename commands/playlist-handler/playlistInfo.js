@@ -50,7 +50,7 @@ async function execute(interact) {
 
     const playlist = require(completePath);
 
-    await interact.deferReply();
+    await interact.deferReply({ ephemeral: true });
 
     const playlistInArray = playlist["list"];
     let playlistContent = "";

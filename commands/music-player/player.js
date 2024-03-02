@@ -116,7 +116,7 @@ async function execute(interact) {
         return;
     }
 
-    await interact.deferReply();
+    await interact.deferReply({ ephemeral: true });
 
     switch(interact.options.getSubcommand()) {
         case "from-file":
@@ -174,7 +174,7 @@ async function execute(interact) {
     const newInfo = new PlayerInfo(subscription, currRessourceData, interact.options.getBoolean("loop"));
     interact.client.musicPlayers.set(interact.guildId, newInfo);
 
-    await interact.editReply(`Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""} ${currRessourceData.selectRnd ? "(random)" : ""}`);
+    await interact.editReply({ content: `Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""} ${currRessourceData.selectRnd ? "(random)" : ""}`, ephemeral: false });
 }
 
 module.exports = {

@@ -47,7 +47,7 @@ async function execute(interact) {
         return;
     }
 
-    await interact.deferReply();
+    await interact.deferReply({ ephemeral: true });
 
     let listing = "";
     let playlistIdx = interact.options.getInteger("from") ?? 1;

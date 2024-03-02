@@ -36,7 +36,7 @@ async function execute(interact) {
         return;
     }
 
-    await interact.deferReply();
+    await interact.deferReply({ ephemeral: true });
 
     const res = currPlayer.resource.next();
 
@@ -45,7 +45,7 @@ async function execute(interact) {
 
         currPlayer.player.play(resource);
 
-        await interact.editReply(`Next is ${currPlayer.resource.toString()}`);
+        await interact.editReply({ content: `Next is ${currPlayer.resource.toString()}`, ephemeral: true });
     } else {
         await interact.editReply({ content: `No more music in the playlist.`, ephemeral: true });
     }
