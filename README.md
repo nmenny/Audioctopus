@@ -123,3 +123,15 @@ Warnings: The bot must be connected to a channel in order for it to work.
 Result:
 
 The commands tells if it has successfully unpaused the music.
+
+### /stop
+
+Stops to play the current music.
+
+Usage: `/stop`
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells if it has successfully stopped the music.

@@ -41,7 +41,7 @@ async function execute(interact) {
     if(paused) {
         await interact.reply({ content: `Pause.`, ephemeral: false });
     } else {
-        await interact.reply({ content: `Not playing.`, ephemeral: false });
+        await interact.reply({ content: `Not playing.`, ephemeral: true });
     }
 }
 
