@@ -102,6 +102,21 @@ Result:
 
 The commands tells the name of the playing video. 
 
+### /hyperloop
+
+Activates/Deactivated the loopback function for the music.
+
+Usage: `/hyperloop activated`
+
+Details:
+- `activated`: if <tt>true</tt>, the loopback is activated
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells the new status of the loopback function.
+
 ### /pause
 
 Pauses the currently playing music.

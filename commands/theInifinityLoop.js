@@ -20,8 +20,13 @@ const { SlashCommandBuilder } = require("discord.js");
 const { getVoiceConnection } = require('@discordjs/voice');
 
 const command = new SlashCommandBuilder()
-    .setName("pause")
-    .setDescription("Pauses the current music.");
+    .setName("hyperloop")
+    .setDescription("Indicate the player if the music is looped or not")
+    .addBooleanOption(opt => 
+        opt.setName("activated")
+            .setDescription("Loop the music ?")
+            .setRequired(true)
+    );
 
 async function execute(interact) {
     const cnt = getVoiceConnection(interact.guildId);
@@ -30,19 +35,16 @@ async function execute(interact) {
         return;
     }
 
+    const loopActivated = interact.options.getBoolean("activated");
+
     const currPlayer = interact.client.musicPlayers.get(interact.guildId);
     if(!currPlayer) {
         await interact.reply({ content: `No audio playing.`, ephemeral: true });
         return;
     }
 
-    const paused = currPlayer.player.pause();
-
-    if(paused) {
-        await interact.reply({ content: `Pause.`, ephemeral: false });
-    } else {
-        await interact.reply({ content: `Not playing.`, ephemeral: true });
-    }
+    currPlayer.inLoop = loopActivated;
+    await interact.reply({ content: `Loopback ${loopActivated ? "activated" : "deactivated"}.`, ephemeral: false });
 }
 
 module.exports = {
