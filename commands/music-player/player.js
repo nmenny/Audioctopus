@@ -19,10 +19,10 @@
 const path = require("path");
 
 const { SlashCommandBuilder } = require("discord.js");
-const { AudioPlayerStatus, getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
+const { AudioPlayerStatus, getVoiceConnection, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 
-const { PlayerInfo } = require(path.join("..", "..", "utils", "types.js"));
-const { FileResource, LinkResource, checkFileFormat } = require(path.join("..", "..", "utils", "resourceHandler.js"));
+const { PlayerInfo } = require(path.join(__dirname, "..", "..", "utils", "types.js"));
+const { FileResource, LinkResource, checkFileFormat } = require(path.join(__dirname, "..", "..", "utils", "resourceHandler.js"));
 
 const command = new SlashCommandBuilder()
     .setName("play")

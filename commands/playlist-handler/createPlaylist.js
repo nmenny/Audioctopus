@@ -21,6 +21,8 @@ const path = require("path");
 
 const { SlashCommandBuilder } = require("discord.js");
 
+const { createFolderName } = require(path.join(__dirname, "..", "..", "utils", "playlistUtils.js"));
+
 const command = new SlashCommandBuilder()
     .setName("create-playlist")
     .setDescription("Creates a new playlist.")
@@ -31,17 +33,13 @@ const command = new SlashCommandBuilder()
             .setRequired(true)
     )
 
-function createFolderName(gid) {
-    return path.join(__dirname, "..", "..", "playlist", gid);
-}
-
 async function execute(interact) {
     const folderName = createFolderName(interact.guildId);
     const fileName = interact.options.getString("playlist-name");
     const completePath = path.join(folderName, fileName + ".json");
 
     if(fs.existsSync(completePath)) {
-        await interact.reply(`Playlist '${fileName}' already exists.`);
+        await interact.reply(`Playlist "${fileName}" already exists.`);
         return;
     }
 
@@ -49,9 +47,9 @@ async function execute(interact) {
 
     try {
         fs.writeFileSync(completePath, JSON.stringify({}), 'utf8');
-        await interact.reply(`Playlist '${fileName}' successfully created.`);
+        await interact.reply(`Playlist "${fileName}" successfully created.`);
     } catch (error) {
-        await interact.reply({ content: `Playlist '${fileName}' could not be created.`, ephemeral: true });
+        await interact.reply({ content: `Playlist "${fileName}" could not be created.`, ephemeral: true });
     }
 }
 

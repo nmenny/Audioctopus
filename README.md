@@ -179,3 +179,17 @@ Details:
 Result:
 
 The commands tells if the playlist has been successfully created or if it already exists.
+
+### /add-to-playlist
+
+Adds a new Youtube music into a playlist.
+
+Usage: `/add-to-playlist playlist-name link`
+
+Details:
+- `playlist-name`: the name of the playlist to populate.
+- `link`: the link of the Youtube video to add to the playlist.
+
+Result:
+
+The commands tells if the music has successfully been added to the playlist or not.
