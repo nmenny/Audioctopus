@@ -100,17 +100,16 @@ class ResourceSet {
         if(idx <= 0 || idx > this.set.length) return false;
 
         this.reset();
-        this.currIdx = idx;
-        this.lastingSetIdx = this.lastingSetIdx.slice(idx);
-
-        return true;
+        this.lastingSetIdx = this.lastingSetIdx.slice(idx-1);
+        
+        return this.next();;
     }
 
     next() {
         if(!this.hasMoreResource()) return false;
 
         if(this.selectRnd) {
-            const selectIdx = Math.round(Math.random() * (this.lastingSetIdx.length - 1)) + 1;
+            const selectIdx = Math.round(Math.random() * (this.lastingSetIdx.length - 1));
             this.currIdx = this.lastingSetIdx[selectIdx];
             this.lastingSetIdx = this.lastingSetIdx.slice(0, selectIdx).concat(this.lastingSetIdx.slice(selectIdx+1));
         } else {
@@ -132,7 +131,7 @@ class ResourceSet {
         this.currIdx = 0;
         this.lastingSetIdx = [];
         for(let idx in this.set) {
-            this.lastingSetIdx.push(idx+1);
+            this.lastingSetIdx.push(parseInt(idx)+1);
         }
     }
 
