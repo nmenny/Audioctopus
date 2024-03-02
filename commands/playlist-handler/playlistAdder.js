@@ -46,10 +46,9 @@ async function execute(interact) {
     const folderName = createFolderName(interact.guildId);
     const fileName = interact.options.getString("playlist-name");
     const completePath = path.join(folderName, fileName + ".json");
-    let currRessourceData = undefined;
 
     if(!fs.existsSync(completePath)) {
-        await interact.reply(`Playlist "${fileName}" does not exist.`);
+        await interact.reply({ content: `Playlist "${fileName}" already exists.`, ephemeral: true });
         return;
     }
 

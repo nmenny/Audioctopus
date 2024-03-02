@@ -41,14 +41,14 @@ async function execute(interact) {
     const completePath = path.join(folderName, fileName + ".json");
 
     if(fs.existsSync(completePath)) {
-        await interact.reply(`Playlist "${fileName}" already exists.`);
+        await interact.reply({ content: `Playlist "${fileName}" already exists.`, ephemeral: true });
         return;
     }
 
     fs.mkdirSync(folderName, { recursive: true });
 
     if(fs.readdirSync(folderName).length >= NB_MAX_PLAYLIST) {
-        await interact.editReply({ content: `Limits of ${NB_MAX_PLAYLIST} playlists reached".`, ephemeral: true });
+        await interact.reply({ content: `Limits of ${NB_MAX_PLAYLIST} playlists reached".`, ephemeral: true });
         return;
     }
 
