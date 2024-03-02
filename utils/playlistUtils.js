@@ -16,10 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const fs = require("fs");
 const path = require("path");
 
 function createFolderName(gid) {
     return path.join(__dirname, "..", "playlist", gid);
 }
 
-module.exports = { createFolderName };
+function loadPlaylist(gid, playlistName) {
+    const folderName = createFolderName(gid);
+    const completePath = path.join(folderName, playlistName + ".json");
+
+    if(!fs.existsSync(completePath)) {
+        return undefined;
+    }
+
+    const playlist = require(completePath);
+
+    return playlist;
+}
+
+module.exports = { createFolderName, loadPlaylist };
