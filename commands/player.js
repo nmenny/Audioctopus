@@ -16,9 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const path = require("path");
+
 const { SlashCommandBuilder } = require("discord.js");
 const { AudioPlayerStatus, getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior, StreamType, demuxProbe } = require('@discordjs/voice');
 const ytdl = require("ytdl-core");
+
+const { PlayerInfo } = require(path.join("..", "utils", "playerInfo.js"));
 
 const command = new SlashCommandBuilder()
     .setName("play")
@@ -84,12 +88,6 @@ async function execute(interact) {
 
     await interact.deferReply();
 
-    const prevPlayer = interact.client.musicPlayers.get(interact.guildId);
-    if(prevPlayer) {
-        prevPlayer[0].stop();
-        prevPlayer[1].unsubscribe();
-    }
-
     switch(interact.options.getSubcommand()) {
         case "from-file":
             const file = interact.options.getAttachment("file")
@@ -107,6 +105,12 @@ async function execute(interact) {
             return;
     }
 
+    const prevPlayer = interact.client.musicPlayers.get(interact.guildId);
+    if(prevPlayer) {
+        prevPlayer.player.stop();
+        prevPlayer.subscription.unsubscribe();
+    }
+
     if(!resource.metadata) resource.metadata = {};
     if(!resource.metadata.title) resource.metadata.title = msg;
 
@@ -114,9 +118,10 @@ async function execute(interact) {
     player.play(resource);
     const subscription = cnt.subscribe(player);
 
-    interact.client.musicPlayers.set(interact.guildId, [player, subscription]);
+    const newInfo = new PlayerInfo(subscription);
+    interact.client.musicPlayers.set(interact.guildId, newInfo);
 
-    await interact.editReply(`Playing ${msg}...`);
+    await interact.editReply(`Playing ${msg} ${newInfo.inLoop ? "(loop)" : ""}`);
 }
 
 module.exports = {
