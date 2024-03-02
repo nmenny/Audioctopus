@@ -30,11 +30,13 @@ dotenv.config();
 
 // --------------
 // Setup Discord Bot
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
+
+client.commands = new Collection();
+client.musicPlayers = new Collection();
 
 // --------------
 // Gets the commands
-client.commands = new Collection();
 const commandFolderPath = path.join(__dirname, "commands");
 const myCommands = [];
 

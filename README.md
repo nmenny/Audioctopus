@@ -69,3 +69,33 @@ Usage `/disconnect`
 Result:
 
 The commands informs the user if the bot has been successfully disconnected or not.
+
+### /play from-file
+
+Plays an audio file in a discord channel.
+
+Usage: `/play from-file file`
+
+Details:
+- `file`: a file to play. Must be one of .mp3, .webm or .ogg
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells the name of the playing file. 
+
+### /play from-youtube
+
+Plays a Youtube music in a discord channel.
+
+Usage: `/play from-youtube link`
+
+Details:
+- `link`: a link to a youtube video.
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells the name of the playing video. 

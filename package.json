@@ -27,7 +27,7 @@
     "@discordjs/voice": "^0.16.1",
     "discord.js": "^14.12.1",
     "dotenv": "^16.4.5",
-    "libsodium-wrappers": "^0.7.13",
-    "sodium": "^3.0.2"
+    "sodium": "^3.0.2",
+    "ytdl-core": "^4.11.5"
   }
 }
