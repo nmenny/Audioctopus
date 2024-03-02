@@ -24,7 +24,6 @@ const command = new SlashCommandBuilder()
     .setDescription("Disconnects from an audio channel.");
 
 async function execute(interact) {
-    console.log(interact);
     try {
         const cnt = getVoiceConnection(interact.guildId);
 
