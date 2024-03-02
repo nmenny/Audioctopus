@@ -99,3 +99,15 @@ Warnings: The bot must be connected to a channel in order for it to work.
 Result:
 
 The commands tells the name of the playing video. 
+
+### /pause
+
+Pauses the currently playing music.
+
+Usage: `/pause`
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells if it has successfully paused the music.
