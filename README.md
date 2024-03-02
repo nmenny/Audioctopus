@@ -45,7 +45,7 @@ And then, the Bot can be started with the following command :
 node .
 ```
 
-## Available commands
+## Available commands for audio
 
 ### /connect
 
@@ -164,3 +164,18 @@ Warnings: The bot must be connected to a channel in order for it to work.
 Result:
 
 The name and the status of the loopback function is indicated (on or off).
+
+## Available commands for playlists
+
+### /create-playlist
+
+Creates a new playlist to store musics.
+
+Usage: `/create-playlist playlistName`
+
+Details:
+- `playlistName`: the name of the playlist to create.
+
+Result:
+
+The commands tells if the playlist has been successfully created or if it already exists.
