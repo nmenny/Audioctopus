@@ -205,9 +205,29 @@ Details:
 
 Result:
 
-The commands lists all the playlists.   
+The commands returns a list of all the playlists.   
 For example,   
 /list-all-playlists   
 > The playlists: 
 > 1) playlist1
 > 2) playlist2
+
+### /playlist-info
+
+Lists all the musics registered in the given playlist.
+
+Usage: `/playlist-info playlist-name [from]`
+
+Details:
+- `playlist-name`: the name of the playlist to list.
+- `from`: (**optional**) the index from which the listing starts (the numbering starts at 1).
+
+Result:
+
+The commands returns a list of all musics in the playlist.   
+For example,   
+/playlist-info `playlist-name` playlist1  
+> Playlist "playlist1" contains: 
+> 1) Music1
+> 2) Music2
+> 3) Music3
