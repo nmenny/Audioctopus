@@ -23,7 +23,11 @@
   },
   "homepage": "https://github.com/nmenny/AudiOctopus#readme",
   "dependencies": {
+    "@discordjs/opus": "github:discordjs/opus",
+    "@discordjs/voice": "^0.16.1",
     "discord.js": "^14.12.1",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "libsodium-wrappers": "^0.7.13",
+    "sodium": "^3.0.2"
   }
 }
