@@ -250,3 +250,13 @@ For example,
 > 1) Music1
 > 2) Music2
 > 3) Music3
+
+### /next
+
+Plays the next unplayed music in the playlist.
+
+Usage: `/next`
+
+Result:
+
+Writes which music will be played next and switches to it immediately. If there's no more music to be played, it does nothing.
