@@ -181,7 +181,8 @@ Warnings: The bot must be connected to a channel in order for it to work.
 
 Result:
 
-The name and the status of the loopback function is indicated (on or off).
+The name and the status of the loopback function is indicated (on or off).   
+If a playlist is being played, it also shows the number of music left if there is any.
 
 ## Available commands for playlists
 
