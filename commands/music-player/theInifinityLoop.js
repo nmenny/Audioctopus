@@ -20,8 +20,8 @@ const { SlashCommandBuilder } = require("discord.js");
 const { getVoiceConnection } = require('@discordjs/voice');
 
 const command = new SlashCommandBuilder()
-    .setName("hyperloop")
-    .setDescription("Indicate the player if the music is looped or not")
+    .setName("set-loopback")
+    .setDescription("Tells the music player to loopback or not.")
     .addBooleanOption(opt => 
         opt.setName("activated")
             .setDescription("Loop the music ?")

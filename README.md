@@ -120,11 +120,11 @@ Result:
 
 The commands tells the name of the playing video.
 
-### /hyperloop
+### /set-loopback
 
 Activates/Deactivated the loopback function for the music.
 
-Usage: `/hyperloop activated`
+Usage: `/set-loopback activated`
 
 Details:
 - `activated`: if <tt>true</tt>, the loopback is activated
@@ -223,7 +223,7 @@ Details:
 
 Result:
 
-The commands returns a list of all the playlists.   
+The commands returns a list of all the playlists with their corresponding number index.   
 For example,   
 /list-all-playlists   
 > The playlists: 
@@ -242,7 +242,7 @@ Details:
 
 Result:
 
-The commands returns a list of all musics in the playlist with their id.   
+The commands returns a list of all musics in the playlist with their index.   
 For example,   
 /playlist-info `playlist-name` playlist1  
 > Playlist "playlist1" contains: 
