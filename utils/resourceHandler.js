@@ -25,6 +25,10 @@ async function probeAndCreateResource(readableStream) {
     return createAudioResource(stream, { inputType: type });
 }
 
+function checkFileFormat(fileFormat) {
+    return fileFormat === "audio/mpeg" || fileFormat === "audio/ogg" || fileFormat === "audio/webm";
+}
+
 class Resource {
     constructor(title) {
         this.title = title;
@@ -73,4 +77,4 @@ class LinkResource extends Resource {
     toString() { return `Youtube video **${super.toString()}**`; }
 }
 
-module.exports = { FileResource, LinkResource }
+module.exports = { FileResource, LinkResource, checkFileFormat };

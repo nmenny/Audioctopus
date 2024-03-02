@@ -43,7 +43,7 @@ const myCommands = [];
 exploreCommandsFolder(commandFolderPath, "", myCommands);
 
 for (const cmd of myCommands) {
-    client.commands.set(cmd.data.name, cmd);
+    if("data" in cmd) client.commands.set(cmd.data.name, cmd);
 }
 
 // --------------

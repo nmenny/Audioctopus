@@ -22,7 +22,7 @@ const { SlashCommandBuilder } = require("discord.js");
 const { AudioPlayerStatus, getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 
 const { PlayerInfo } = require(path.join("..", "..", "utils", "types.js"));
-const { FileResource, LinkResource } = require(path.join("..", "..", "utils", "resourceHandler.js"));
+const { FileResource, LinkResource, checkFileFormat } = require(path.join("..", "..", "utils", "resourceHandler.js"));
 
 const command = new SlashCommandBuilder()
     .setName("play")
@@ -90,7 +90,13 @@ async function execute(interact) {
 
     switch(interact.options.getSubcommand()) {
         case "from-file":
-            const file = interact.options.getAttachment("file")
+            const file = interact.options.getAttachment("file");
+
+            if(!checkFileFormat(file.contentType)) {
+                await interact.editReply({ content: `Incorrect file format. (not one of .mp3, .ogg or .webm).`, ephemeral: true });
+                return;
+            }
+
             currRessourceData = new FileResource(file.name, file.attachment);
             resource = await currRessourceData.load();
             break;

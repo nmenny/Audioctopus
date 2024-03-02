@@ -28,6 +28,7 @@ function addCommand(currPath) {
     } else {
         console.log(`[WARNING] The command at ${currPath} is missing a required "data" or "execute" property.`);
     }
+    return {};
 }
 
 function exploreCommandsFolder(currPath, fileName = "", res = []) {

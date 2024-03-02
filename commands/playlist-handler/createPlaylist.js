@@ -25,7 +25,7 @@ const command = new SlashCommandBuilder()
     .setName("create-playlist")
     .setDescription("Creates a new playlist.")
     .addStringOption(opt =>
-        opt.setName("playlistName")
+        opt.setName("playlist-name")
             .setDescription("The name of the playlist.")
             .setMaxLength(30)
             .setRequired(true)
@@ -37,7 +37,7 @@ function createFolderName(gid) {
 
 async function execute(interact) {
     const folderName = createFolderName(interact.guildId);
-    const fileName = interact.options.getString("playlistName");
+    const fileName = interact.options.getString("playlist-name");
     const completePath = path.join(folderName, fileName + ".json");
 
     if(fs.existsSync(completePath)) {

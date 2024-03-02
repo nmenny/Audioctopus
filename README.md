@@ -171,10 +171,10 @@ The name and the status of the loopback function is indicated (on or off).
 
 Creates a new playlist to store musics.
 
-Usage: `/create-playlist playlistName`
+Usage: `/create-playlist playlist-name`
 
 Details:
-- `playlistName`: the name of the playlist to create.
+- `playlist-name`: the name of the playlist to create.
 
 Result:
 
