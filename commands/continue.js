@@ -20,8 +20,8 @@ const { SlashCommandBuilder } = require("discord.js");
 const { getVoiceConnection } = require('@discordjs/voice');
 
 const command = new SlashCommandBuilder()
-    .setName("pause")
-    .setDescription("Pauses the current music.");
+    .setName("continue")
+    .setDescription("Continues to play the current music.");
 
 async function execute(interact) {
     const cnt = getVoiceConnection(interact.guildId);
@@ -36,12 +36,12 @@ async function execute(interact) {
         return;
     }
 
-    const paused = prevPlayer.player.pause();
+    const unPaused = prevPlayer.player.unpause();
 
-    if(paused) {
-        await interact.reply({ content: `Pause.`, ephemeral: false });
+    if(unPaused) {
+        await interact.reply({ content: `Continue.`, ephemeral: false });
     } else {
-        await interact.reply({ content: `Not playing.`, ephemeral: false });
+        await interact.reply({ content: `Not paused.`, ephemeral: false });
     }
 }
 

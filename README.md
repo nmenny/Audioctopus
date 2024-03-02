@@ -111,3 +111,15 @@ Warnings: The bot must be connected to a channel in order for it to work.
 Result:
 
 The commands tells if it has successfully paused the music.
+
+### /continue
+
+Continues to play the current music.
+
+Usage: `/continue`
+
+Warnings: The bot must be connected to a channel in order for it to work.
+
+Result:
+
+The commands tells if it has successfully unpaused the music.
