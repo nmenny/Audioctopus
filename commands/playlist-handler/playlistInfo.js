@@ -35,6 +35,7 @@ const command = new SlashCommandBuilder()
     .addIntegerOption(opt =>
         opt.setName("from")
             .setDescription("The index in the playlist to start the listing. (starts at 1)")
+            .setMinValue(1)
     )
 
 async function execute(interact) {
@@ -51,15 +52,15 @@ async function execute(interact) {
 
     await interact.deferReply();
 
-    const playlistInArray = Object.keys(playlist);
+    const playlistInArray = playlist["list"];
     let playlistContent = "";
     let musicIdx = interact.options.getInteger("from") ?? 1;
     if(musicIdx <= 0 || musicIdx > playlistInArray.length) musicIdx = 1;
     
     for(; musicIdx <= playlistInArray.length; musicIdx++) {
-        const music = playlist[playlistInArray[musicIdx-1]];
+        const music = playlistInArray[musicIdx-1];
 
-        playlistContent += `\n${musicIdx}) _${music}_`;
+        playlistContent += `\n${musicIdx}) _${music.title}_`;
     }
 
     await interact.editReply({ content: `Playlist "${fileName}" contains: ${playlistContent}`, ephemeral: true });

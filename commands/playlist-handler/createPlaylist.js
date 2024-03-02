@@ -53,7 +53,7 @@ async function execute(interact) {
     }
 
     try {
-        fs.writeFileSync(completePath, JSON.stringify({}), 'utf8');
+        fs.writeFileSync(completePath, JSON.stringify({"list": []}), 'utf8');
         await interact.reply(`Playlist "${fileName}" successfully created.`);
     } catch (error) {
         await interact.reply({ content: `Playlist "${fileName}" could not be created.`, ephemeral: true });

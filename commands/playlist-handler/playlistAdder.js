@@ -59,17 +59,19 @@ async function execute(interact) {
     const videoLink = interact.options.getString("link");
     const info = await ytdl.getInfo(videoLink);
 
-    if(videoLink in playlist) {
-        await interact.editReply({ content: `Music **'${info.videoDetails.title}'** already in playlist "${fileName}".`, ephemeral: true });
-        return;
+    for(const music of playlist["list"]) {
+        if(music.link === videoLink) {
+            await interact.editReply({ content: `Music **'${info.videoDetails.title}'** already in playlist "${fileName}".`, ephemeral: true });
+            return;
+        }
     }
 
-    if(Object.keys(playlist).length >= NB_MAX_MUSIC_IN_PLAYLIST) {
+    if(playlist["list"].length >= NB_MAX_MUSIC_IN_PLAYLIST) {
         await interact.editReply({ content: `Limits of ${NB_MAX_MUSIC_IN_PLAYLIST} musics reached in playlist "${fileName}".`, ephemeral: true });
         return;
     }
 
-    playlist[videoLink] = info.videoDetails.title;
+    playlist["list"].push({ "title": info.videoDetails.title, "link": videoLink });
 
     try {
         fs.writeFileSync(completePath, JSON.stringify(playlist), 'utf8');

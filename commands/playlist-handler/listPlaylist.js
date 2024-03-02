@@ -29,6 +29,7 @@ const command = new SlashCommandBuilder()
     .addIntegerOption(opt =>
         opt.setName("from")
             .setDescription("The index to start the listing in the playlist list. (starts at 1)")
+            .setMinValue(1)
     )
 
 async function execute(interact) {
