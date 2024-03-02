@@ -30,13 +30,14 @@ async function execute(interact) {
         return;
     }
 
-    const prevPlayer = interact.client.musicPlayers.get(interact.guildId);
-    if(!prevPlayer) {
+    const currPlayer = interact.client.musicPlayers.get(interact.guildId);
+    if(!currPlayer) {
         await interact.reply({ content: `No audio playing.`, ephemeral: true });
         return;
     }
 
-    const stopped = prevPlayer.player.stop();
+    const stopped = currPlayer.player.stop();
+    interact.client.musicPlayers.delete(interact.guildId);
 
     if(stopped) {
         await interact.reply({ content: `Stopped.`, ephemeral: false });

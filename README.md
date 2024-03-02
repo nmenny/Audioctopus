@@ -74,10 +74,11 @@ The commands informs the user if the bot has been successfully disconnected or n
 
 Plays an audio file in a discord channel.
 
-Usage: `/play from-file file`
+Usage: `/play from-file file [loop]`
 
 Details:
 - `file`: a file to play. Must be one of .mp3, .webm or .ogg
+- `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -89,10 +90,11 @@ The commands tells the name of the playing file.
 
 Plays a Youtube music in a discord channel.
 
-Usage: `/play from-youtube link`
+Usage: `/play from-youtube link [loop]`
 
 Details:
 - `link`: a link to a youtube video.
+- `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 
 Warnings: The bot must be connected to a channel in order for it to work.
 

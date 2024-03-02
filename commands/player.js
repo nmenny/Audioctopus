@@ -19,10 +19,10 @@
 const path = require("path");
 
 const { SlashCommandBuilder } = require("discord.js");
-const { AudioPlayerStatus, getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior, StreamType, demuxProbe } = require('@discordjs/voice');
-const ytdl = require("ytdl-core");
+const { AudioPlayerStatus, getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 
-const { PlayerInfo } = require(path.join("..", "utils", "playerInfo.js"));
+const { PlayerInfo } = require(path.join("..", "utils", "types.js"));
+const { FileResource, LinkResource } = require(path.join("..", "utils", "resourceHandler.js"));
 
 const command = new SlashCommandBuilder()
     .setName("play")
@@ -35,6 +35,10 @@ const command = new SlashCommandBuilder()
                     .setDescription("The music file to play.")
                     .setRequired(true)
             )
+            .addBooleanOption(opt => 
+                opt.setName("loop")
+                    .setDescription("Plays music in a loop.")    
+            )
     )   
     .addSubcommand(scmd => 
         scmd.setName("from-youtube")
@@ -45,15 +49,13 @@ const command = new SlashCommandBuilder()
                     .setMaxLength(300)
                     .setRequired(true)
             )
+            .addBooleanOption(opt => 
+                opt.setName("loop")
+                    .setDescription("Plays music in a loop.")    
+            )
     )
 
-async function probeAndCreateResource(readableStream) {
-    const { stream, type } = await demuxProbe(readableStream);
-
-    return createAudioResource(stream, { inputType: type });
-}
-
-function createPlayer() {
+function createPlayer(cli, gid) {
     const player = createAudioPlayer({behaviors: { noSubscriber: NoSubscriberBehavior.Pause } });
                     
     player.on('error', error => {
@@ -64,8 +66,15 @@ function createPlayer() {
         console.log('Loading...');
     });
 
-    player.on(AudioPlayerStatus.Idle, () => {
+    player.on(AudioPlayerStatus.Idle, async () => {
         console.log('IDLE...');
+
+        const playerI = cli.musicPlayers.get(gid);
+        if(playerI && playerI.inLoop) {
+            console.log("looping...");
+            resource = await playerI.resource.load();
+            playerI.player.play(resource);
+        }
     });
 
     player.on(AudioPlayerStatus.Playing, () => {
@@ -76,7 +85,7 @@ function createPlayer() {
 }
 
 async function execute(interact) {
-    let msg = "";
+    let currRessourceData = undefined;
     let cnt = undefined;
     let resource = undefined;
 
@@ -91,14 +100,14 @@ async function execute(interact) {
     switch(interact.options.getSubcommand()) {
         case "from-file":
             const file = interact.options.getAttachment("file")
-            msg = `file **${file.name}**`;
-            resource = createAudioResource(file.attachment);
+            
+            currRessourceData = new FileResource(file.name, file.attachment);
+            resource = await currRessourceData.load();
             break;
         case "from-youtube":
             const videoLink = interact.options.getString("link");
-            const data = ytdl(videoLink, { format:"webm", filter:"audioonly", quality: "lowestaudio" });
-            data.on("info", info => { msg = `Youtube video **${info.videoDetails.title}**`; });            
-            resource = await probeAndCreateResource(data);
+            currRessourceData = new LinkResource("", videoLink);
+            resource = await currRessourceData.load();
             break;
         default:
             await interact.editReply({ content: `Not a valid command.`, ephemeral: true });
@@ -111,17 +120,14 @@ async function execute(interact) {
         prevPlayer.subscription.unsubscribe();
     }
 
-    if(!resource.metadata) resource.metadata = {};
-    if(!resource.metadata.title) resource.metadata.title = msg;
-
-    const player = createPlayer();
+    const player = createPlayer(interact.client, interact.guildId);
     player.play(resource);
     const subscription = cnt.subscribe(player);
 
-    const newInfo = new PlayerInfo(subscription);
+    const newInfo = new PlayerInfo(subscription, currRessourceData, interact.options.getBoolean("loop"));
     interact.client.musicPlayers.set(interact.guildId, newInfo);
 
-    await interact.editReply(`Playing ${msg} ${newInfo.inLoop ? "(loop)" : ""}`);
+    await interact.editReply(`Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""}`);
 }
 
 module.exports = {
