@@ -193,3 +193,21 @@ Details:
 Result:
 
 The commands tells if the music has successfully been added to the playlist or not.
+
+### /list-all-playlists
+
+Lists all the playlists created on the server.
+
+Usage: `/list-all-playlists [from]`
+
+Details:
+- `from`: (**optional**) the index from which the listing starts (the numbering starts at 1).
+
+Result:
+
+The commands lists all the playlists.   
+For example,   
+/list-all-playlists   
+> The playlists: 
+> 1) playlist1
+> 2) playlist2
