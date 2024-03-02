@@ -1,0 +1,29 @@
+{
+  "name": "audioctopus",
+  "version": "0.0.0",
+  "description": "A Discord bot to play audio in Discord audio channels",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nmenny/AudiOctopus.git"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "audio",
+    "music"
+  ],
+  "author": "Nathan Menny",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nmenny/AudiOctopus/issues"
+  },
+  "homepage": "https://github.com/nmenny/AudiOctopus#readme",
+  "dependencies": {
+    "discord.js": "^14.12.1",
+    "dotenv": "^16.4.5"
+  }
+}
