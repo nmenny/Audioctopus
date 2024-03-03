@@ -45,6 +45,28 @@ And then, the Bot can be started with the following command :
 node .
 ```
 
+## Discord Commands
+
+For audio:   
+- [/connect](#connect)
+- [/disconnect](#disconnect)
+- [/play from-file](#play-from-file)
+- [/play from-youtube](#play-from-youtube)
+- [/play from-playlist](#play-from-playlist)
+- [/set-loopback](#set-loopback)
+- [/set-random-playback](#set-random-playback)
+- [/pause](#pause)
+- [/continue](#continue)
+- [/stop](#stop)
+- [/next](#next)
+- [/status](#status)
+
+For playlists:   
+- [/create-playlist](#create-playlist)
+- [/add-to-playlist](#add-to-playlist)
+- [/list-all-playlists](#list-all-playlists)
+- [/playlist-info](#playlist-info)
+
 ## Available commands for audio
 
 ### /connect
@@ -186,6 +208,16 @@ Result:
 
 The commands tells if it has successfully stopped the music.
 
+### /next
+
+Plays the next unplayed music in the playlist.
+
+Usage: `/next`
+
+Result:
+
+Writes which music will be played next and switches to it immediately. If there's no more music to be played, it does nothing.
+
 ### /status
 
 Display information about the current music.
@@ -265,13 +297,3 @@ For example,
 > 1) Music1
 > 2) Music2
 > 3) Music3
-
-### /next
-
-Plays the next unplayed music in the playlist.
-
-Usage: `/next`
-
-Result:
-
-Writes which music will be played next and switches to it immediately. If there's no more music to be played, it does nothing.
