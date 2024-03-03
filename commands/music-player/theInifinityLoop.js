@@ -23,7 +23,7 @@ const command = new SlashCommandBuilder()
     .setName("set-loopback")
     .setDescription("Tells the music player to loopback or not.")
     .addBooleanOption(opt => 
-        opt.setName("activated")
+        opt.setName("activate")
             .setDescription("Loop the music ?")
             .setRequired(true)
     );
@@ -35,7 +35,7 @@ async function execute(interact) {
         return;
     }
 
-    const loopActivated = interact.options.getBoolean("activated");
+    const loopActivated = interact.options.getBoolean("activate");
 
     const currPlayer = interact.client.musicPlayers.get(interact.guildId);
     if(!currPlayer) {

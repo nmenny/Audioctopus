@@ -23,7 +23,7 @@ const command = new SlashCommandBuilder()
     .setName("set-random-playback")
     .setDescription("Tells the music player to randomly pick a song in a playlist or not.")
     .addBooleanOption(opt => 
-        opt.setName("activated")
+        opt.setName("activate")
             .setDescription("Randomly chooses the next song ?")
             .setRequired(true)
     );
@@ -35,7 +35,7 @@ async function execute(interact) {
         return;
     }
 
-    const rndActivated = interact.options.getBoolean("activated");
+    const rndActivated = interact.options.getBoolean("activate");
 
     const currPlayer = interact.client.musicPlayers.get(interact.guildId);
     if(!currPlayer) {

@@ -160,12 +160,12 @@ The commands tells the name of the playing video.
 
 ### /set-loopback
 
-Activates/Deactivated the loopback function for the music.
+Activates/Deactivates the loopback function for the music.
 
-Usage: `/set-loopback activated`
+Usage: `/set-loopback activate`
 
 Details:
-- `activated`: if <tt>true</tt>, the loopback is activated
+- `activate`: if <tt>true</tt>, the loopback is activated
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -175,12 +175,12 @@ The commands tells the new state of the loopback function.
 
 ### /set-random-playback
 
-Activates/Deactivated the random playback for the playlists.
+Activates/Deactivates the random playback for the playlists.
 
-Usage: `/set-random-playback activated`
+Usage: `/set-random-playback activate`
 
 Details:
-- `activated`: if <tt>true</tt>, the random playback is activated
+- `activate`: if <tt>true</tt>, the random playback is activated
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
