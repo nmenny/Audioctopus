@@ -374,7 +374,7 @@ Usage: `/remove-music-from-playlist playlist-name music-id`
 Details:
 
 - `playlist-name`: the name of the playlist containing the music to remove.
-- `music-id-1`: (**optional**) the id of the music to remove (the numbering starts at 1).
+- `music-id`: (**optional**) the id of the music to remove (the numbering starts at 1).
 
 Warnings: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
 
