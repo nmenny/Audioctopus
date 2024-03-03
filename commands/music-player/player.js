@@ -134,12 +134,10 @@ async function execute(interact) {
 
     cnt = getVoiceConnection(interact.guildId)
     if (!cnt) {
-        await interact.reply(
-            await interact.reply({
-                content: `Not connected to any channel.`,
-                ephemeral: true,
-            })
-        )
+        await interact.reply({
+            content: `Not connected to any channel.`,
+            ephemeral: true,
+        })
         return
     }
 
