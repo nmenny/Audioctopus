@@ -81,6 +81,7 @@ For audio:
 For playlists:
 
 - [/create-playlist](#create-playlist)
+- [/remove-playlist](#remove-playlist)
 - [/add-to-playlist](#add-to-playlist)
 - [/list-all-playlists](#list-all-playlists)
 - [/playlist-info](#playlist-info)
