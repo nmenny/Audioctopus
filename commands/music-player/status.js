@@ -37,7 +37,6 @@ async function execute(interact) {
     }
 
     let res = `${currPlayer.resource.toString()} (loopback: ${currPlayer.inLoop ? "_on_" : "_off_"}) (random playback: ${currPlayer.resource.selectRnd ? "_on_" : "_off_"})`;
-
     if(currPlayer.resource.hasMoreResource()) res += `\nStill ${currPlayer.resource.numberOfResourcesLeft()} music(s) to play.`;
 
     await interact.reply({ content: res, ephemeral: true });

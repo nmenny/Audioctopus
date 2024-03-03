@@ -54,14 +54,14 @@ async function execute(interact) {
 
     const playlist = require(completePath);
 
-    await interact.deferReply();
+    await interact.deferReply({ ephemeral: true });
 
     const videoLink = interact.options.getString("link");
-    const info = await ytdl.getInfo(videoLink);
 
+    // Checks if the music is not already in the playlist
     for(const music of playlist["list"]) {
         if(music.link === videoLink) {
-            await interact.editReply({ content: `Music **'${info.videoDetails.title}'** already in playlist "${fileName}".`, ephemeral: true });
+            await interact.editReply({ content: `This music is already in the playlist "${fileName}".`, ephemeral: true });
             return;
         }
     }
@@ -71,6 +71,7 @@ async function execute(interact) {
         return;
     }
 
+    const info = await ytdl.getInfo(videoLink);
     playlist["list"].push({ "title": info.videoDetails.title, "link": videoLink });
 
     try {

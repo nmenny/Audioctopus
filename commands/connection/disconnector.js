@@ -29,7 +29,7 @@ async function execute(interact) {
 
         if(cnt) {
             cnt.destroy();
-            await interact.reply({ content: `Successfully disconnected.`, ephemeral: true });
+            await interact.reply({ content: `Successfully disconnected.`, ephemeral: false });
         } else {
             await interact.reply({ content: `Not disconnected since not connected to any channel.`, ephemeral: true });
         }

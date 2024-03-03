@@ -39,7 +39,7 @@ async function execute(interact) {
             adapterCreator: chnl.guild.voiceAdapterCreator,
         });
 
-        await interact.reply({ content: `Successfully connected to the channel **${chnl.name}**.`, ephemeral: true });
+        await interact.reply({ content: `Successfully connected to the channel **${chnl.name}**.`, ephemeral: false });
     } catch(err) {
         await interact.reply({ content: `[ERR] ${err.message}.`, ephemeral: true });
     }

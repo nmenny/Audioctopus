@@ -127,12 +127,15 @@ async function execute(interact) {
                 return;
             }
 
+            // Loads the given resource
             currRessourceData.addResource(new FileResource(file.name, file.attachment));
             currRessourceData.next();
             resource = await currRessourceData.load();
             break;
         case "from-youtube":
             const videoLink = interact.options.getString("link");
+
+            // Loads the given resource
             currRessourceData.addResource(new LinkResource("", videoLink));
             currRessourceData.next();
             resource = await currRessourceData.load();
@@ -145,14 +148,17 @@ async function execute(interact) {
                 await interact.editReply({ content: `Playlist "${interact.options.getString('playlist-name')}" does not exist or is empty.`, ephemeral: true });
                 return;
             }
-
+            
+            // Searches for all the resources in the playlist
             for(let music of playlist["list"]) {
                 currRessourceData.addResource(new LinkResource(music.title, music.link));
             }
 
+            // Checks the id of the music
             const musicId = interact.options.getInteger("music-id") ?? 1;
             if(musicId <= 0 || musicId > playlist["list"].length) musicId = 1;
 
+            // Loads the given resource
             currRessourceData.goto(musicId);
             resource = await currRessourceData.load();
             break;
@@ -161,20 +167,23 @@ async function execute(interact) {
             return;
     }
 
+    // If a music is already playing, stops it cleanly
     const prevPlayer = interact.client.musicPlayers.get(interact.guildId);
     if(prevPlayer) {
         prevPlayer.player.stop();
         prevPlayer.subscription.unsubscribe();
     }
 
+    // Creates and adds a new audio player to the connection
     const player = createPlayer(interact.client, interact.guildId);
     player.play(resource);
     const subscription = cnt.subscribe(player);
 
+    // Stores the information about the currently playing music
     const newInfo = new PlayerInfo(subscription, currRessourceData, interact.options.getBoolean("loop"));
     interact.client.musicPlayers.set(interact.guildId, newInfo);
 
-    await interact.editReply({ content: `Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""} ${currRessourceData.selectRnd ? "(random)" : ""}`, ephemeral: false });
+    await interact.editReply({ content: `Playing ${currRessourceData.toString()} ${newInfo.inLoop ? "(loop)" : ""} ${currRessourceData.selectRnd ? "(random)" : ""}`, ephemeral: true });
 }
 
 module.exports = {
