@@ -16,11 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
 function createFolderName(gid) {
-    return path.join(__dirname, "..", "playlist", gid);
+    return path.join(__dirname, "..", "playlist", hash(gid));
 }
 
 function loadPlaylist(gid, playlistName) {
@@ -34,6 +35,10 @@ function loadPlaylist(gid, playlistName) {
     const playlist = require(completePath);
 
     return playlist;
+}
+
+function hash(clear) {
+    return crypto.createHash("RSA-SHA3-256").update(`${clear}`).digest("hex");
 }
 
 module.exports = { createFolderName, loadPlaylist };
