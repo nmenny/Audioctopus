@@ -4,4 +4,4 @@ services:
     container_name: audioctopus
     build: .
     env_file: .env
-    restart: always
+    restart: on-failure
