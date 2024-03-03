@@ -85,6 +85,7 @@ For playlists:
 - [/list-all-playlists](#list-all-playlists)
 - [/playlist-info](#playlist-info)
 - [/order-playlist](#order-playlist)
+- [/remove-playlist-music](#remove-playlist-music)
 
 ## Available commands for audio
 
@@ -339,10 +340,27 @@ Usage: `/order-playlist playlist-name music-id-1 music-id-2`
 
 Details:
 
-- `playlist-name`: the name of the playlist to swap.
+- `playlist-name`: the name of the playlist containing the music to swap.
 - `music-id-1`: (**optional**) the id of the first music to swap (the numbering starts at 1).
 - `music-id-2`: (**optional**) the id of the second music to swap (the numbering starts at 1).
 
 Result:
 
-The commands tells if the music has successfully been added to the playlist or not.
+The commands tells if the music have been swapped successfully or not.
+
+### /remove-music-from-playlist
+
+Removes a music from a playlist.
+
+Usage: `/remove-music-from-playlist playlist-name music-id`
+
+Details:
+
+- `playlist-name`: the name of the playlist containing the music to remove.
+- `music-id-1`: (**optional**) the id of the music to remove (the numbering starts at 1).
+
+Warnings: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
+
+Result:
+
+The commands tells if the music have been removed successfully or not.
