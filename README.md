@@ -65,25 +65,26 @@ node .
 
 For audio:
 
--   [/connect](#connect)
--   [/disconnect](#disconnect)
--   [/play from-file](#play-from-file)
--   [/play from-youtube](#play-from-youtube)
--   [/play from-playlist](#play-from-playlist)
--   [/set-loopback](#set-loopback)
--   [/set-random-playback](#set-random-playback)
--   [/pause](#pause)
--   [/continue](#continue)
--   [/stop](#stop)
--   [/next](#next)
--   [/status](#status)
+- [/connect](#connect)
+- [/disconnect](#disconnect)
+- [/play from-file](#play-from-file)
+- [/play from-youtube](#play-from-youtube)
+- [/play from-playlist](#play-from-playlist)
+- [/set-loopback](#set-loopback)
+- [/set-random-playback](#set-random-playback)
+- [/pause](#pause)
+- [/continue](#continue)
+- [/stop](#stop)
+- [/next](#next)
+- [/status](#status)
 
 For playlists:
 
--   [/create-playlist](#create-playlist)
--   [/add-to-playlist](#add-to-playlist)
--   [/list-all-playlists](#list-all-playlists)
--   [/playlist-info](#playlist-info)
+- [/create-playlist](#create-playlist)
+- [/add-to-playlist](#add-to-playlist)
+- [/list-all-playlists](#list-all-playlists)
+- [/playlist-info](#playlist-info)
+- [/order-playlist](#order-playlist)
 
 ## Available commands for audio
 
@@ -95,7 +96,7 @@ Usage: `/connect channel`
 
 Details:
 
--   `channel`: the audio channel to connect to. If the bot is already connected, this connexion replaces the old one.
+- `channel`: the audio channel to connect to. If the bot is already connected, this connexion replaces the old one.
 
 Result:
 
@@ -119,8 +120,8 @@ Usage: `/play from-file file [loop]`
 
 Details:
 
--   `file`: a file to play. Must be one of .mp3, .webm or .ogg
--   `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
+- `file`: a file to play. Must be one of .mp3, .webm or .ogg
+- `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -136,8 +137,8 @@ Usage: `/play from-youtube link [loop]`
 
 Details:
 
--   `link`: a link to a youtube video.
--   `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
+- `link`: a link to a youtube video.
+- `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -153,10 +154,10 @@ Usage: `/play from-playlist playlist-name [music-id] [loop] [random]`
 
 Details:
 
--   `playlist-name`: a name of playlist to play.
--   `music-id`: (**optional**) the id of the music to play. The id is the number that corresponds to the one given when typing the command `playlist-info playlist-name`.
--   `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
--   `random`: (**optional**) if <tt>true</tt> plays the musics in a random order.
+- `playlist-name`: a name of playlist to play.
+- `music-id`: (**optional**) the id of the music to play. The id is the number that corresponds to the one given when typing the command `playlist-info playlist-name`.
+- `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
+- `random`: (**optional**) if <tt>true</tt> plays the musics in a random order.
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -172,7 +173,7 @@ Usage: `/set-loopback activate`
 
 Details:
 
--   `activate`: if <tt>true</tt>, the loopback is activated
+- `activate`: if <tt>true</tt>, the loopback is activated
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -188,7 +189,7 @@ Usage: `/set-random-playback activate`
 
 Details:
 
--   `activate`: if <tt>true</tt>, the random playback is activated
+- `activate`: if <tt>true</tt>, the random playback is activated
 
 Warnings: The bot must be connected to a channel in order for it to work.
 
@@ -265,7 +266,7 @@ Usage: `/create-playlist playlist-name`
 
 Details:
 
--   `playlist-name`: the name of the playlist to create.
+- `playlist-name`: the name of the playlist to create.
 
 Result:
 
@@ -279,8 +280,8 @@ Usage: `/add-to-playlist playlist-name link`
 
 Details:
 
--   `playlist-name`: the name of the playlist to populate.
--   `link`: the link of the Youtube video to add to the playlist.
+- `playlist-name`: the name of the playlist to populate.
+- `link`: the link of the Youtube video to add to the playlist.
 
 Result:
 
@@ -294,7 +295,7 @@ Usage: `/list-all-playlists [from]`
 
 Details:
 
--   `from`: (**optional**) the index from which the listing starts (the numbering starts at 1).
+- `from`: (**optional**) the index from which the listing starts (the numbering starts at 1).
 
 Result:
 
@@ -315,8 +316,8 @@ Usage: `/playlist-info playlist-name [from]`
 
 Details:
 
--   `playlist-name`: the name of the playlist to list.
--   `from`: (**optional**) the index from which the listing starts (the numbering starts at 1).
+- `playlist-name`: the name of the playlist to list.
+- `from`: (**optional**) the index from which the listing starts (the numbering starts at 1).
 
 Result:
 
@@ -329,3 +330,19 @@ For example,
 > 1. Music1
 > 2. Music2
 > 3. Music3
+
+### /order-playlist
+
+Swaps two musics in the playlist.
+
+Usage: `/order-playlist playlist-name music-id-1 music-id-2`
+
+Details:
+
+- `playlist-name`: the name of the playlist to swap.
+- `music-id-1`: (**optional**) the id of the first music to swap (the numbering starts at 1).
+- `music-id-2`: (**optional**) the id of the second music to swap (the numbering starts at 1).
+
+Result:
+
+The commands tells if the music has successfully been added to the playlist or not.
