@@ -86,7 +86,7 @@ For playlists:
 - [/list-all-playlists](#list-all-playlists)
 - [/playlist-info](#playlist-info)
 - [/order-playlist](#order-playlist)
-- [/remove-playlist-music](#remove-playlist-music)
+- [/remove-music-from-playlist](#remove-music-from-playlist)
 
 ## Available commands for audio
 
