@@ -110,6 +110,8 @@ Disconnects the bot from the current audio channel.
 
 Usage `/disconnect`
 
+**Warnings**: The bot must be connected to a channel in order for it to work.
+
 Result:
 
 The commands informs the user if the bot has been successfully disconnected or not.
@@ -125,7 +127,7 @@ Details:
 - `file`: a file to play. Must be one of .mp3, .webm or .ogg
 - `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -142,7 +144,7 @@ Details:
 - `link`: a link to a youtube video.
 - `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -157,11 +159,11 @@ Usage: `/play from-playlist playlist-name [music-id] [loop] [random]`
 Details:
 
 - `playlist-name`: a name of playlist to play.
-- `music-id`: (**optional**) the id of the music to play. The id is the number that corresponds to the one given when typing the command `playlist-info playlist-name`.
+- `music-id`: (**optional**) the id of the music to play. The id is the number that corresponds to the one given when typing the command [/playlist-info](#playlist-info).
 - `loop`: (**optional**) if <tt>true</tt> plays the audio in a loop.
 - `random`: (**optional**) if <tt>true</tt> plays the musics in a random order.
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -177,7 +179,7 @@ Details:
 
 - `activate`: if <tt>true</tt>, the loopback is activated
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -193,7 +195,7 @@ Details:
 
 - `activate`: if <tt>true</tt>, the random playback is activated
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -205,7 +207,7 @@ Pauses the currently playing music.
 
 Usage: `/pause`
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -217,7 +219,7 @@ Continues to play the current music.
 
 Usage: `/continue`
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -229,7 +231,7 @@ Stops to play the current music.
 
 Usage: `/stop`
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -251,7 +253,7 @@ Display information about the current music.
 
 Usage: `/status`
 
-Warnings: The bot must be connected to a channel in order for it to work.
+**Warnings**: The bot must be connected to a channel in order for it to work.
 
 Result:
 
@@ -284,7 +286,7 @@ Details:
 
 - `playlist-name`: the name of the playlist to remove.
 
-Warnings: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
+**Warnings**: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
 
 Result:
 
@@ -339,7 +341,7 @@ Details:
 
 Result:
 
-The commands returns a list of all musics in the playlist with their index.  
+The commands returns a list of all musics in the playlist with their id.  
 For example,  
 /playlist-info `playlist-name` playlist1
 
@@ -361,6 +363,8 @@ Details:
 - `music-id-1`: (**optional**) the id of the first music to swap (the numbering starts at 1).
 - `music-id-2`: (**optional**) the id of the second music to swap (the numbering starts at 1).
 
+Help: You can get the music id with the command [/playlist-info](#playlist-info).
+
 Result:
 
 The commands tells if the music have been swapped successfully or not.
@@ -376,7 +380,9 @@ Details:
 - `playlist-name`: the name of the playlist containing the music to remove.
 - `music-id`: (**optional**) the id of the music to remove (the numbering starts at 1).
 
-Warnings: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
+Help: You can get the music id with the command [/playlist-info](#playlist-info).
+
+**Warnings**: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
 
 Result:
 
