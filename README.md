@@ -6,15 +6,7 @@ A Discord bot to play music in audio channels.
 
 ### Requirements
 
-The project relies on **node v20**.
-
-### Install
-
-To install the dependencies, run the following command :
-
-```bash
-npm ci
-```
+The project relies on **node v20** and need **ffmpeg** to handle audio.
 
 ### Setup
 
@@ -23,15 +15,39 @@ To setup the bot, you must define a `.env` file containing the following variabl
 ```txt
 TOKEN=<token of your Discord bot>
 CLIENT_ID=<id of the application>
-GUILD_ID=<id of the development guild> (mandatory if ENV is not "deployment")
-ENV=<"development" or "deployment"> (default is "deployment")
+GUILD_ID=<id of the development guild> (mandatory if ENV is not deployment)
+ENV=<development or deployment> (default is deployment)
 ```
 
-For the `ENV` variable, if its value is "development" the commands are only updated in the Discord Server with the id `GUILD_ID` otherwise the commands are updated in all the Discord Servers where the bot can execute / (SLASH) commands.
+For the `ENV` variable, if its value is development the commands are only updated in the Discord Server with the id `GUILD_ID` otherwise the commands are updated in all the Discord Servers where the bot can execute / (SLASH) commands.
 
-The `GUILD_ID` and `ENV` must be defined only if you want to deploy in "development" mode.
+The `GUILD_ID` and `ENV` must be defined only if you want to deploy in development mode.
 
-### Start
+### With Docker
+
+You can use Docker to build the app. For that, run the following command to create the docker container :
+
+```
+docker build .
+```
+
+Then, once you have the .env setup and the container built, you can start it with the command : 
+
+```
+docker-compose up -d
+```
+
+### Without Docker
+
+#### Install
+
+To install the dependencies, run the following command :
+
+```bash
+npm ci
+```
+
+#### Start
 
 Firstly, the commands must be deployed in the target servers. To do so, execute the script `deploy-commands.js` using the following command :
 
