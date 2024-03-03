@@ -273,6 +273,22 @@ Result:
 
 The commands tells if the playlist has been successfully created or if it already exists.
 
+### /remove-playlist
+
+Removes a playlist.
+
+Usage: `/remove-playlist playlist-name`
+
+Details:
+
+- `playlist-name`: the name of the playlist to remove.
+
+Warnings: The user requesting the removal must be either the owner of the playlist (i.e. the one who created it) or an Administrator.
+
+Result:
+
+The commands tells if the playlist has been successfully removed or if it does not exist.
+
 ### /add-to-playlist
 
 Adds a new Youtube music into a playlist.

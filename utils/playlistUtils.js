@@ -24,6 +24,11 @@ function createFolderName(gid) {
     return path.join(__dirname, '..', 'playlist', hash(gid))
 }
 
+function getPlaylistPath(gid, playlistName) {
+    const folderName = createFolderName(gid)
+    return path.join(folderName, playlistName + '.json')
+}
+
 function checkPlaylistUser(hashed, uid) {
     return hashed === hash(uid)
 }
@@ -32,9 +37,12 @@ function createPlaylistStructure(uid) {
     return { list: [], owner: hash(uid) }
 }
 
+function playlistExists(gid, playlistName) {
+    return fs.existsSync(getPlaylistPath(gid, playlistName))
+}
+
 function loadPlaylist(gid, playlistName) {
-    const folderName = createFolderName(gid)
-    const completePath = path.join(folderName, playlistName + '.json')
+    const completePath = getPlaylistPath(gid, playlistName)
 
     if (!fs.existsSync(completePath)) {
         return undefined
@@ -46,11 +54,20 @@ function loadPlaylist(gid, playlistName) {
 }
 
 function savePlaylist(gid, playlistName, playlist) {
-    const folderName = createFolderName(gid)
-    const completePath = path.join(folderName, playlistName + '.json')
+    const completePath = getPlaylistPath(gid, playlistName)
 
     try {
         fs.writeFileSync(completePath, JSON.stringify(playlist), 'utf8')
+        return true
+    } catch (err) {
+        return false
+    }
+}
+
+function removePlaylist(gid, playlistName) {
+    const completePath = getPlaylistPath(gid, playlistName)
+    try {
+        fs.rmSync(completePath)
         return true
     } catch (err) {
         return false
@@ -62,9 +79,11 @@ function hash(clear) {
 }
 
 module.exports = {
+    playlistExists,
     createFolderName,
     createPlaylistStructure,
     checkPlaylistUser,
     loadPlaylist,
     savePlaylist,
+    removePlaylist,
 }

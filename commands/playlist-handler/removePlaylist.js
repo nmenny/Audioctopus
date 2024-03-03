@@ -20,15 +20,15 @@ const path = require('path')
 
 const { SlashCommandBuilder, PermissionsBitField } = require('discord.js')
 
-const { checkPlaylistUser, loadPlaylist, savePlaylist } = require(
+const { removePlaylist, checkPlaylistUser, loadPlaylist } = require(
     path.join(__dirname, '..', '..', 'utils', 'playlistUtils.js')
 )
 
 const ADMIN_PERM = PermissionsBitField.Flags.Administrator
 
 const command = new SlashCommandBuilder()
-    .setName('remove-music-from-playlist')
-    .setDescription('Removes a music from a playlist.')
+    .setName('remove-playlist')
+    .setDescription('Removes a playlist.')
     .addStringOption((opt) =>
         opt
             .setName('playlist-name')
@@ -36,17 +36,9 @@ const command = new SlashCommandBuilder()
             .setMaxLength(30)
             .setRequired(true)
     )
-    .addIntegerOption((opt) =>
-        opt
-            .setName('music-id')
-            .setDescription('The id of the music to remove. (starts at 1)')
-            .setMinValue(1)
-            .setRequired(true)
-    )
 
 async function execute(interact) {
     const fileName = interact.options.getString('playlist-name')
-    const musicId = interact.options.getInteger('music-id')
 
     const playlist = loadPlaylist(interact.guildId, fileName)
     if (!playlist) {
@@ -62,42 +54,20 @@ async function execute(interact) {
         !interact.memberPermissions.has(ADMIN_PERM)
     ) {
         await interact.reply({
-            content: `Cannot remove a music from this playlist. You are not the owner nor an Administrator.`,
+            content: `Cannot remove this playlist. You are not the owner nor an Administrator.`,
             ephemeral: true,
         })
         return
     }
 
-    const playlistInArray = playlist['list']
-
-    if (playlistInArray.length === 0) {
+    if (removePlaylist(interact.guildId, fileName)) {
         await interact.reply({
-            content: `Playlist "${fileName}" is empty.`,
-            ephemeral: true,
-        })
-        return
-    }
-
-    if (musicId <= 0 || musicId > playlistInArray.length) {
-        await interact.reply({
-            content: `Wrong music id. Should be between 1 and ${playlistInArray.length}`,
-            ephemeral: true,
-        })
-        return
-    }
-
-    playlist['list'] = playlistInArray
-        .slice(0, musicId - 1)
-        .concat(playlistInArray.slice(musicId))
-
-    if (savePlaylist(interact.guildId, fileName, playlist)) {
-        await interact.reply({
-            content: `Music ${musicId} successfully removed from playlist "${fileName}".`,
+            content: `Playlist "${fileName}" successfully removed.`,
             ephemeral: false,
         })
     } else {
         await interact.reply({
-            content: `Music ${musicId} could not be removed from playlist "${fileName}".`,
+            content: `Playlist "${fileName}" could not be removed.`,
             ephemeral: true,
         })
     }
