@@ -75,10 +75,8 @@ async function execute(interact) {
         return
     }
 
-    await interact.deferReply({ ephemeral: true })
-
     if (musicId <= 0 || musicId > playlistInArray.length) {
-        await interact.editReply({
+        await interact.reply({
             content: `Wrong music id. Should be between 1 and ${playlistInArray.length}`,
             ephemeral: true,
         })
@@ -90,13 +88,13 @@ async function execute(interact) {
         .concat(playlistInArray.slice(musicId))
 
     if (savePlaylist(interact.guildId, fileName, playlist)) {
-        await interact.editReply({
-            content: `Music ${musicId} successfully removed.`,
-            ephemeral: true,
+        await interact.reply({
+            content: `Music ${musicId} successfully removed from playlist "${fileName}".`,
+            ephemeral: false,
         })
     } else {
-        await interact.editReply({
-            content: `Music ${musicId} could not be removed.`,
+        await interact.reply({
+            content: `Music ${musicId} could not be removed from playlist "${fileName}".`,
             ephemeral: true,
         })
     }
