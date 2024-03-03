@@ -4,10 +4,8 @@
     "description": "A Discord bot to play audio in Discord audio channels",
     "main": "index.js",
     "scripts": {
-        "format:check": "prettier --check .",
-        "format:write": "prettier --write .",
-        "lint:check": "eslint .",
-        "lint:fix": "eslint --fix ."
+        "format": "prettier --write .",
+        "lint": "eslint ."
     },
     "repository": {
         "type": "git",
