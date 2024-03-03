@@ -1,33 +1,41 @@
 {
-  "name": "audioctopus",
-  "version": "1.3.0",
-  "description": "A Discord bot to play audio in Discord audio channels",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nmenny/AudiOctopus.git"
-  },
-  "keywords": [
-    "bot",
-    "discord",
-    "audio",
-    "music"
-  ],
-  "author": "Nathan Menny",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/nmenny/AudiOctopus/issues"
-  },
-  "homepage": "https://github.com/nmenny/AudiOctopus#readme",
-  "dependencies": {
-    "@discordjs/opus": "github:discordjs/opus",
-    "@discordjs/voice": "^0.16.1",
-    "discord.js": "^14.12.1",
-    "dotenv": "^16.4.5",
-    "sodium": "^3.0.2",
-    "ytdl-core": "^4.11.5"
-  }
+    "name": "audioctopus",
+    "version": "1.3.0",
+    "description": "A Discord bot to play audio in Discord audio channels",
+    "main": "index.js",
+    "scripts": {
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write .",
+        "lint:check": "eslint .",
+        "lint:fix": "eslint --fix ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nmenny/AudiOctopus.git"
+    },
+    "keywords": [
+        "bot",
+        "discord",
+        "audio",
+        "music"
+    ],
+    "author": "Nathan Menny",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/nmenny/AudiOctopus/issues"
+    },
+    "homepage": "https://github.com/nmenny/AudiOctopus#readme",
+    "dependencies": {
+        "@discordjs/opus": "github:discordjs/opus",
+        "@discordjs/voice": "^0.16.1",
+        "discord.js": "^14.12.1",
+        "dotenv": "^16.4.5",
+        "sodium": "^3.0.2",
+        "ytdl-core": "^4.11.5"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "prettier": "^3.2.5"
+    }
 }

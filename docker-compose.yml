@@ -1,7 +1,7 @@
-version: "3"
+version: '3'
 services:
-  audioctopus:
-    container_name: audioctopus
-    build: .
-    env_file: .env
-    restart: on-failure
+    audioctopus:
+        container_name: audioctopus
+        build: .
+        env_file: .env
+        restart: on-failure
