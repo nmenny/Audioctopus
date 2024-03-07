@@ -367,7 +367,7 @@ Help: You can get the music id with the command [/playlist-info](#playlist-info)
 
 Result:
 
-The commands tells if the music have been swapped successfully or not.
+The commands tells if the music has been swapped successfully or not.
 
 ### /remove-music-from-playlist
 
@@ -378,7 +378,7 @@ Usage: `/remove-music-from-playlist playlist-name music-id`
 Details:
 
 - `playlist-name`: the name of the playlist containing the music to remove.
-- `music-id`: (**optional**) the id of the music to remove (the numbering starts at 1).
+- `music-id`: the id of the music to remove (the numbering starts at 1).
 
 Help: You can get the music id with the command [/playlist-info](#playlist-info).
 
@@ -386,4 +386,4 @@ Help: You can get the music id with the command [/playlist-info](#playlist-info)
 
 Result:
 
-The commands tells if the music have been removed successfully or not.
+The commands tells if the music has been successfully removed from the playlist or not.
